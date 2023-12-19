@@ -117,7 +117,7 @@ left join (select CWG_Part_Number,ifs_number2, IFS_Description from dbo.EDG_NonC
  left join dbo.z_WF_FuncObj_Serv fo on 
 		cs.ACCOUNT_NUMBER = fo.account_number and cs.SERVICE_NUMBER = fo.service_number  and ac.legacy_number = fo.account_number
 		and ac.customer_no = fo.customer_NO
-left join [dbo].[WF_ContractServiceTranslation] ST ON ST.BRANCH = '04 - Orlando' AND CS.SERVICE_C = ST.service_code
+left join [dbo].[WF_All_ContractServiceTranslation_P1] ST ON ST.BRANCH = '04 - Orlando' AND CS.SERVICE_C = ST.service_code
 where ((cs.SERV_TERM_DATE is null or cs.SERV_TERM_DATE = '') and (cs.TERM_REASON_C is null or cs.TERM_REASON_C = '')) and 
 CS.SERV_TYPE_C = 'RN' and cs.DELV_ROUTE_1 <> 'NO'
 and (cs.DELV_FREQUENCY <>0 or ( cs.DELV_FREQUENCY = 0 and cs.TRANSACTION_C <> '')) order by 5

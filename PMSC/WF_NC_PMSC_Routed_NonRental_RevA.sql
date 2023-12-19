@@ -109,17 +109,17 @@ WHEN cs.delv_truck_1 IS NOT NULL THEN CONCAT('JAX_TRUCK_',cs.delv_truck_1)
 		end PriceCurr_SC
 , 'FALSE' IncludeObjectsaddedtoStructure_SC 
 FROM 
-dbo.P1_NC_CustServ cs
-INNER JOIN [dbo].[P1_NC_CUSTOMER] C ON cs.ACCOUNT_NUMBER = C.ACCOUNT_NUMBER
-inner join dbo.customer_active_scope ac on ac.legacy_number = cs.account_number and ac.legacy_number = c.account_number and ac.legacy_migration_source = '09 - Jacksonville'inner join dbo.P1_NC_ServiceCodes sc on cs.service_c = sc.SERVICE_C
+dbo.WF_JV_CustServ cs
+INNER JOIN [dbo].[WF_JV_CUSTOMER] C ON cs.ACCOUNT_NUMBER = C.ACCOUNT_NUMBER
+inner join dbo.customer_active_scope ac on ac.legacy_number = cs.account_number and ac.legacy_number = c.account_number and ac.legacy_migration_source = '09 - Jacksonville'inner join dbo.WF_JV_ServiceCodes sc on cs.service_c = sc.SERVICE_C
 left join [dbo].[z_transcodepart] X ON isnull(CS.TRANSACTION_C,'') = isnull(X.WATERFLEX_TRANS_CODE,'')
 left join (select CWG_Part_Number,ifs_number2, IFS_Description from dbo.EDG_NonCullParts_CWG where CWG_Part_Number is not null) X1
 			on  (cs.TRANSACTION_C = x1.CWG_Part_Number) or (x.New_MAS_Item_Code = x1.CWG_Part_Number)
- left join [dbo].[P1_NC_CustOverride] O on cs.ACCOUNT_NUMBER = o.ACCOUNT_NUMBER and cs.TRANSACTION_C = o.TRANSACTION_C
+ left join [dbo].[WF_JV_CustOverride] O on cs.ACCOUNT_NUMBER = o.ACCOUNT_NUMBER and cs.TRANSACTION_C = o.TRANSACTION_C
  left join dbo.z_WF_FuncObj_Serv fo on 
 		cs.ACCOUNT_NUMBER = fo.account_number and cs.SERVICE_NUMBER = fo.service_number  and ac.legacy_number = fo.account_number
 		and ac.customer_no = fo.customer_NO
-left join [dbo].[WF_ContractServiceTranslation] ST ON ST.BRANCH = '09 - Jacksonville' AND CS.SERVICE_C = ST.service_code
+left join [dbo].[WF_All_ContractServiceTranslation_P1] ST ON ST.BRANCH = '09 - Jacksonville' AND CS.SERVICE_C = ST.service_code
 where ((cs.SERV_TERM_DATE is null or cs.SERV_TERM_DATE = '') and (cs.TERM_REASON_C is null or cs.TERM_REASON_C = '')) and 
 CS.SERV_TYPE_C <> 'RN' and cs.DELV_ROUTE_1 <> 'NO'
 and (cs.DELV_FREQUENCY <>0 or ( cs.DELV_FREQUENCY = 0 and cs.TRANSACTION_C <> '')) order by 4

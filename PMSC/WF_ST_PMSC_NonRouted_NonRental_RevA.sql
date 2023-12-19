@@ -73,6 +73,6 @@ left join [dbo].[z_transcodepart] X ON isnull(CS.TRANSACTION_C,'') = isnull(X.WA
  left join dbo.z_WF_FuncObj_Serv fo on 
 		cs.ACCOUNT_NUMBER = fo.account_number and cs.SERVICE_NUMBER = fo.service_number  and ac.legacy_number = fo.account_number
 		and ac.customer_no = fo.customer_NO
-left join [dbo].[WF_ContractServiceTranslation] ST ON ST.BRANCH = '05 - Starke' AND CS.SERVICE_C = ST.service_code
+left join [dbo].[WF_All_ContractServiceTranslation_P1] ST ON ST.BRANCH = '05 - Starke' AND CS.SERVICE_C = ST.service_code
 where ((cs.SERV_TERM_DATE is null or cs.SERV_TERM_DATE = '') and (cs.TERM_REASON_C is null or cs.TERM_REASON_C = '')) and 
 CS.SERV_TYPE_C <> 'RN' and cs.DELV_ROUTE_1 = 'NO' and cs.SERVICE_RATE <> '0' order by 1
