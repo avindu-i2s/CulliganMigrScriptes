@@ -164,7 +164,7 @@ ac.legacy_number,
 	end Interval_pm
 , 'YES' PerformedDateBased_PM
 , PL.prod_desc  WorkDescription_pm
-, '1' WorkDuration_PM
+, '0.15' WorkDuration_PM
 , 'Person' ResourceDemandType_PM
 , 'EDG_PP_DEL' ResourceGroup_PM
 , CASE CM.ROU_ROUTE_A
