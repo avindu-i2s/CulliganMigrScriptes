@@ -69,13 +69,13 @@ select distinct
 ,  CONVERT(NVARCHAR,ce.Installed_date,101) INSTALL_DATE
 
 FROM 
-dbo.P1_NC_CustEquip ce 
-inner join  dbo.P1_NC_EquipmentCodes ec on ec.EQUIPMENT_C = ce.EQUIPMENT_C
+dbo.WF_JV_CustEquip ce 
+inner join  dbo.WF_JV_EquipmentCodes ec on ec.EQUIPMENT_C = ce.EQUIPMENT_C
 inner join dbo.customer_active_scope ac on ac.legacy_number = ce.account_number  and ac.legacy_migration_source = '09 - Jacksonville'
-LEFT JOIN P1_NC_EquipmentMaster eq ON ce.SERIAL_NUMBER = eq.SERIAL_NUMBER AND ce.EQUIPMENT_C = eq.EQUIPMENT_C and eq.EQUIPMENT_C = ec.equipment_c and eq.CURRENT_ACCOUNT = ce.ACCOUNT_NUMBER and eq.CURRENT_ACCOUNT = ac.legacy_number
+LEFT JOIN WF_JV_EquipmentMaster eq ON ce.SERIAL_NUMBER = eq.SERIAL_NUMBER AND ce.EQUIPMENT_C = eq.EQUIPMENT_C and eq.EQUIPMENT_C = ec.equipment_c and eq.CURRENT_ACCOUNT = ce.ACCOUNT_NUMBER and eq.CURRENT_ACCOUNT = ac.legacy_number
 left join zEquipmentTranslation z on ce.equipment_c = z.objectid 
 left join dbo.IFS_FA_ID FA ON CE.EQUIPMENT_C = FA.EQUIPMENT_C AND FA.ACCOUNT_NUMBER = CE.ACCOUNT_NUMBER AND FA.SERIAL_NUMBER = CE.SERIAL_NUMBER
-left join dbo.P1_NC_CustNote  cn on ce.ACCOUNT_NUMBER = cn.ACCOUNT_NUMBER and tRIM(REPLACE(CE.SERIAL_NUMBER,'RM:',''))= TRIM(REPLACE(SUBSTRING(CN.NOTE,1,21),'ID: ',''))
+left join dbo.WF_JV_CustNote  cn on ce.ACCOUNT_NUMBER = cn.ACCOUNT_NUMBER and tRIM(REPLACE(CE.SERIAL_NUMBER,'RM:',''))= TRIM(REPLACE(SUBSTRING(CN.NOTE,1,21),'ID: ',''))
 
 WHERE CE.DEALER_OWNED_C = 'D'
 
